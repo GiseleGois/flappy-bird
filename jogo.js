@@ -2,7 +2,14 @@ console.log('[GiseleGois] Flappy Bird');
 
 let frames = 0;
 const som_HIT = new Audio();
+const som_PULO = new Audio();
+const som_CAIU = new Audio();
+const som_PONTO = new Audio();
 som_HIT.src = './efeitos/hit.wav';
+som_PULO.src = './efeitos/pulo.wav';
+som_CAIU.src = './efeitos/caiu.wav';
+som_PONTO.src = './efeitos/ponto.wav';
+
 
 const sprites = new Image();
 sprites.src = './sprites.png';
@@ -89,6 +96,7 @@ function fazColisao(flappyBird, chao) {
     const chaoY = chao.y;
 
     if (flappyBirdY >= chaoY) {
+        som_CAIU.play();
         return true;
     }
     return false;
@@ -107,6 +115,7 @@ function criaFlappyBird() {
         pulo: 4.6,
         pula() {
             console.log('Devo pular')
+            som_PULO.play();
             flappyBird.velocidade = - flappyBird.pulo;
         },
 
@@ -262,6 +271,7 @@ function criaCanos() {
 
             if ((globais.flappyBird.x + globais.flappyBird.largura) >= par.x) {
 
+                som_PONTO.play();
                 if (cabecaDoFlappy <= par.canoCeu.y) {
                     return true;
                 }
